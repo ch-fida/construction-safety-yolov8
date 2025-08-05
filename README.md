@@ -43,12 +43,33 @@ Run the model directly in your browser using Hugging Face Spaces:
 - Test F1 Score: 93%
 
 ## ⚙️ How to Use
+### 🖱️ Option 1: Launch the Web Demo
+
 No installation required.
 
 Simply open the demo on Hugging Face and upload an image. The app will return bounding boxes around detected hats and jackets, helping assess whether construction workers are wearing required PPE.
 
 🔗 [Launch the Demo](https://huggingface.co/spaces/chfida/construction-safety-yolov8)
 
+### 🧩 Option 2: Use the Inference API
+You can also access the model programmatically using the `gradio_client`.
+```python
+from gradio_client import Client, handle_file
+
+client = Client("chfida/construction-safety-yolov8")
+result = client.predict(
+    image=handle_file("your_image.jpg"),  # Replace with your image path
+    image_size=640,
+    conf_threshold=0.5,
+    iou_threshold=0.5,
+    api_name="/predict"
+)
+print(result)
+```
+> **Note**:📦 Make sure you have `gradio_client` installed: 
+>```python
+>pip install gradio_client
+>```
 ## 📁 Repository Contents
 
 ```bash
